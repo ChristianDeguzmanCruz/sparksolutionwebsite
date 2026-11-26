@@ -4,6 +4,7 @@ const path = require('path');
 const apiRoutes = require('./routes/api');
 
 const app = express();
+app.set('trust proxy', 1);
 
 // Security headers. CSP says exactly what the browser may load.
 app.use(
