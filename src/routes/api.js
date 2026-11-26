@@ -1,7 +1,8 @@
 const express = require('express');
 const rateLimit = require('express-rate-limit');
 const pool = require('../db');
-const { sendMail, esc } = require('../mailer');
+const { sendMail } = require('../mailer');
+const mail = require('../emailTemplates');
 
 const router = express.Router();
 
@@ -12,6 +13,17 @@ const when = (date, hour) => {
   const dow = DAYS[new Date(Date.UTC(y, m - 1, d)).getUTCDay()];
   const t = `${hour % 12 === 0 ? 12 : hour % 12}:00 ${hour < 12 ? 'AM' : 'PM'}`;
   return `${dow}, ${MONTHS[m - 1]} ${d}, ${y} at ${t}`;
+};
+
+// Link that adds the call to the customer's Google Calendar
+const calendarUrl = (date, hour) => {
+  const d = date.replace(/-/g, '');
+  const t = (h) => String(h).padStart(2, '0') + '0000';
+  return (
+    'https://calendar.google.com/calendar/render?action=TEMPLATE' +
+    '&text=' + encodeURIComponent('Call with Spark Solution') +
+    `&dates=${d}T${t(hour)}/${d}T${t(hour + 1)}&ctz=Asia/Manila`
+  );
 };
 
 // Mon-Fri. One-hour calls starting at these hours (24h clock): 9, 10, 11, 1PM, 2PM, 3PM
@@ -66,27 +78,10 @@ router.post('/bookings', writeLimiter, async (req, res) => {
     );
 
     const slot = when(date, hour);
-    sendMail({
-      to: process.env.NOTIFY_TO,
-      replyTo: email,
-      subject: `New booking: ${slot}`,
-      html: `<h2>New booking</h2>
-        <p><b>When:</b> ${esc(slot)}</p>
-        <p><b>Name:</b> ${esc(name)}</p>
-        <p><b>Email:</b> ${esc(email)}</p>
-        <p><b>Phone:</b> ${esc(phone) || '-'}</p>
-        <p><b>Business:</b> ${esc(business) || '-'}</p>
-        <p><b>Needs:</b><br>${esc(topic).replace(/\n/g, '<br>') || '-'}</p>`,
-    });
-    sendMail({
-      to: email,
-      subject: 'Your call with Spark Solution is booked',
-      html: `<p>Hi ${esc(name)},</p>
-        <p>Thank you for booking a call with Spark Solution.</p>
-        <p><b>${esc(slot)}</b></p>
-        <p>If you need to change the time, just reply to this email.</p>
-        <p>Spark Solution<br>Solutions that make running your business easier.</p>`,
-    });
+    const team = mail.bookingNotice({ name, email, phone, business, topic, slot });
+    sendMail({ to: process.env.NOTIFY_TO, replyTo: email, ...team });
+    const customer = mail.bookingConfirmation({ name, slot, business, topic, calendarUrl: calendarUrl(date, hour) });
+    sendMail({ to: email, ...customer });
 
     res.status(201).json({ ok: true });
   } catch (err) {
@@ -110,16 +105,8 @@ router.post('/contact', writeLimiter, async (req, res) => {
     [name, email, subject || null, message]
   );
 
-  sendMail({
-    to: process.env.NOTIFY_TO,
-    replyTo: email,
-    subject: `New message: ${(subject || 'No subject').replace(/[\r\n]+/g, ' ')}`,
-    html: `<h2>New message</h2>
-      <p><b>Name:</b> ${esc(name)}</p>
-      <p><b>Email:</b> ${esc(email)}</p>
-      <p><b>Subject:</b> ${esc(subject) || '-'}</p>
-      <p>${esc(message).replace(/\n/g, '<br>')}</p>`,
-  });
+  sendMail({ to: process.env.NOTIFY_TO, replyTo: email, ...mail.messageNotice({ name, email, subject, message }) });
+  sendMail({ to: email, ...mail.messageReceived({ name, subject, message }) });
 
   res.status(201).json({ ok: true });
 });
