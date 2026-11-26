@@ -38,12 +38,16 @@ function validDate(date) {
   return day >= 1 && day <= 5 && date >= today();
 }
 
-router.use(rateLimit({ windowMs: 15 * 60 * 1000, limit: 60 }));
+// Rate limits are skipped while running tests (Jest sets NODE_ENV=test)
+const skipInTests = () => process.env.NODE_ENV === 'test';
+
+router.use(rateLimit({ windowMs: 15 * 60 * 1000, limit: 60, skip: skipInTests }));
 
 // Stricter limit for anything that writes data or sends email (stops spam)
 const writeLimiter = rateLimit({
   windowMs: 60 * 60 * 1000,
   limit: 8,
+  skip: skipInTests,
   message: { error: 'Too many requests. Please try again later.' },
 });
 
