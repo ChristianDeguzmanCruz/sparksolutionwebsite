@@ -10,6 +10,7 @@ const app = require('../src/app');
 const pool = require('../src/db');
 const { sendMail } = require('../src/mailer');
 const templates = require('../src/emailTemplates');
+const rules = require('../src/booking-rules');
 
 process.env.NOTIFY_TO = 'team@test.com';
 
@@ -133,6 +134,26 @@ describe('POST /api/bookings', () => {
     expect(res.status).toBe(201);
     expect(pool.query).not.toHaveBeenCalled();
     expect(sendMail).not.toHaveBeenCalled();
+  });
+});
+
+describe('one day notice', () => {
+  test('today cannot be booked', async () => {
+    const res = await request(app).post('/api/bookings').send({ ...goodBooking, date: rules.today() });
+    expect(res.status).toBe(400);
+    expect(pool.query).not.toHaveBeenCalled();
+  });
+
+  test('slots for today are refused', async () => {
+    const res = await request(app).get(`/api/slots?date=${rules.today()}`);
+    expect(res.status).toBe(400);
+  });
+
+  test('/api/config gives the page the earliest bookable date', async () => {
+    const res = await request(app).get('/api/config');
+    expect(res.status).toBe(200);
+    expect(res.body.minDate > res.body.today).toBe(true);
+    expect(res.body.hours).toEqual([9, 10, 11, 13, 14, 15]);
   });
 });
 

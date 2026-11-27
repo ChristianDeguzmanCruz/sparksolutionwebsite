@@ -9,6 +9,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/effects.css">
+<link rel="stylesheet" href="/css/nav.css">
 </head>
 <body id="top">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -30,55 +32,50 @@
   <div class="comet fall-c"><i></i></div>
 </div>
 
-<header class="nav">
-  <div class="nav-in">
-    <a class="brand" href="#top">
-      <svg width="40" height="40" viewBox="0 0 200 200" role="img" aria-label="Spark Solution logo"><use href="#spkMark"/></svg>
-      <span><b>Spark</b> <span>Solution</span></span>
-    </a>
-    <nav class="links" aria-label="Main">
-      <a class="navlink" href="#portfolio">Portfolio</a>
-      <a class="navlink" href="#services">Services</a>
-      <a class="navlink" href="#packages">Packages</a>
-      <a class="navlink" href="#faq">FAQ</a>
-      <a class="navlink" href="/contact.html">Contact</a>
-      <a class="btn btn-nav" href="/booking.html">Book a call</a>
-    </nav>
+<header class="snav" id="snav" data-theme="dark">
+  <div class="snav-in">
+    <a class="snav-brand" href="/"><svg width="38" height="38" viewBox="0 0 200 200" role="img" aria-label="Spark Solution logo"><use href="#spkMark"/></svg><span><b>Spark</b> <span>Solution</span></span></a>
+    <nav class="snav-links" aria-label="Main"><span class="snav-ind" aria-hidden="true"></span><a href="/#services" data-spy="services">Services</a><a href="/#portfolio" data-spy="portfolio">Portfolio</a><a href="/#process" data-spy="process">Process</a><a href="/#packages" data-spy="packages">Packages</a><a href="/#faq" data-spy="faq">FAQ</a><a href="/contact.html">Contact</a></nav>
+    <a class="snav-cta" href="/booking.html"><span>Book a call</span><i>→</i></a>
+    <button class="snav-burger" id="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="mnav"><span></span><span></span></button>
   </div>
+  <div class="snav-m" id="mnav"><a style="--i:0" href="/#services">Services</a><a style="--i:1" href="/#portfolio">Portfolio</a><a style="--i:2" href="/#process">Process</a><a style="--i:3" href="/#packages">Packages</a><a style="--i:4" href="/#faq">FAQ</a><a style="--i:5" href="/contact.html">Contact</a><a class="snav-cta" style="--i:6" href="/booking.html"><span>Book a call</span><i>→</i></a></div>
 </header>
 
 <main>
 <!-- HERO -->
 <section class="hero">
-  <div class="neb1 neb" aria-hidden="true"></div>
-  <div class="neb2 neb" aria-hidden="true"></div>
+  <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
   <div class="fill drift" aria-hidden="true"><div class="fill stars1 twk"></div><div class="fill stars2 twk2"></div></div>
-  <div class="shoot" aria-hidden="true" style="left:78%;top:8%;width:150px;height:5px;animation:shoot 7s ease-out 1s infinite"></div>
-  <div class="shoot" aria-hidden="true" style="left:55%;top:3%;width:110px;height:4px;animation:shoot 7s ease-out 3.4s infinite"></div>
-  <div class="shoot" aria-hidden="true" style="left:95%;top:30%;width:130px;height:4px;animation:shoot 7s ease-out 5.6s infinite"></div>
+  <div class="gridbg" aria-hidden="true"></div>
+  <div class="shoot" aria-hidden="true" style="left:78%;top:12%;width:150px;height:5px;animation:shoot 7s ease-out 1s infinite"></div>
+  <div class="shoot" aria-hidden="true" style="left:55%;top:7%;width:110px;height:4px;animation:shoot 7s ease-out 3.4s infinite"></div>
+  <div class="shoot" aria-hidden="true" style="left:95%;top:32%;width:130px;height:4px;animation:shoot 7s ease-out 5.6s infinite"></div>
 
   <div class="hero-body hero-out">
     <div class="hero-text">
-      <div class="tag hero-in" style="animation-delay:.1s"><span class="dot-pink pulse"></span>Web and system development</div>
-      <h1 class="hero-in" style="animation-delay:.25s">Solutions that make running your business <span class="sweep grad-text">easier.</span></h1>
-      <p class="sub hero-in" style="animation-delay:.4s">We build websites and systems that solve the everyday problems of business owners, so work moves faster and daily life gets lighter.</p>
-      <div class="cta-row hero-in" style="animation-delay:.55s">
+      <div class="tag hero-in" style="animation-delay:.1s"><span class="dot-pink pulse"></span>We build <span class="rot" aria-label="websites, systems and booking tools"><b>websites</b><b>systems</b><b>booking tools</b></span></div>
+      <h1><span class="w" style="--i:0">Solutions</span> <span class="w" style="--i:1">that</span> <span class="w" style="--i:2">make</span> <span class="w" style="--i:3">running</span> <span class="w" style="--i:4">your</span> <span class="w" style="--i:5">business</span> <span class="w sweep grad-text" style="--i:6">easier.</span></h1>
+      <p class="sub hero-in" style="animation-delay:.9s">We build websites and systems that solve the everyday problems of business owners, so work moves faster and daily life gets lighter.</p>
+      <div class="cta-row hero-in" style="animation-delay:1.05s">
         <a class="btn btn-main" href="/booking.html">Book a call</a>
         <a class="btn btn-ghost" href="#portfolio">See what we build</a>
       </div>
-      <div class="trust hero-in" style="animation-delay:.7s">
+      <div class="trust hero-in" style="animation-delay:1.2s">
         <span>Design first, then code</span><span>Works on every screen</span><span>Support after launch</span>
       </div>
     </div>
     <div class="hero-art">
       <div class="orb">
         <div class="orb-glow pulse" aria-hidden="true"></div>
-        <div class="float" style="position:relative;display:flex">
-          <svg width="280" height="280" viewBox="0 0 200 200" role="img" aria-label="Spark Solution comet mark"><use href="#spkMark"/></svg>
+        <div class="orb-art" data-depth="-18" style="position:relative;display:flex">
+          <div class="float" style="display:flex">
+            <svg width="280" height="280" viewBox="0 0 200 200" role="img" aria-label="Spark Solution comet mark"><use href="#spkMark"/></svg>
+          </div>
         </div>
-        <div class="pill float2" style="left:-24px;top:56px">Websites</div>
-        <div class="pill float" style="right:-20px;top:20px;animation-delay:-2s">Systems</div>
-        <div class="pill float2" style="right:-8px;bottom:54px;animation-delay:-3s">Booking</div>
+        <div class="ui-card c1 float2" data-depth="34" aria-hidden="true"><span class="ic">✓</span><div><b>Booking confirmed</b><small>Mon · 9:00 AM</small></div></div>
+        <div class="ui-card c2 float" data-depth="26" aria-hidden="true" style="animation-delay:-2s"><span class="ic">@</span><div><b>New message</b><small>From the contact form</small></div></div>
+        <div class="ui-card c3 float2" data-depth="42" aria-hidden="true" style="animation-delay:-3s"><span class="ic">!</span><div><b>Stock alert</b><small>3 items running low</small></div></div>
       </div>
     </div>
   </div>
@@ -99,10 +96,10 @@
 <!-- STATS -->
 <div class="wrap" style="padding-bottom:0">
   <div class="stats glass rv">
-    <div class="stat"><b>4 steps</b><span>From your problem to launch</span></div>
-    <div class="stat"><b>1 hour</b><span>Free intro call, Mon to Fri</span></div>
-    <div class="stat"><b>3 screens</b><span>Desktop, tablet and phone</span></div>
-    <div class="stat"><b>24/7</b><span>Your site online, always</span></div>
+    <div class="stat"><b><span data-count="4">4</span> steps</b><span>From your problem to launch</span></div>
+    <div class="stat"><b><span data-count="1">1</span> hour</b><span>Free intro call, Mon to Fri</span></div>
+    <div class="stat"><b><span data-count="3">3</span> screens</b><span>Desktop, tablet and phone</span></div>
+    <div class="stat"><b><span data-count="24">24</span>/7</b><span>Your site online, always</span></div>
   </div>
 </div>
 
@@ -110,7 +107,7 @@
 <section id="services" class="wrap" style="display:flex;flex-direction:column;gap:40px;padding-top:96px">
   <div class="stack rv">
     <div class="eyebrow">What we do</div>
-    <h2 class="h2 wipe">What we build</h2>
+    <h2 class="h2 wipe">What we build</h2><span class="spark-line"></span>
     <p class="lead">Three things, done well. Tell us your problem and we pick the simplest tool that solves it.</p>
   </div>
   <div class="row3">
@@ -134,9 +131,9 @@
 
 <!-- WHY -->
 <section class="wrap">
-  <div class="stack head rv" style="display:flex;flex-direction:column;align-items:flex-start;margin-bottom:40px">
+  <div class="stack rv" style="margin-bottom:40px">
     <div class="eyebrow">Why Spark Solution</div>
-    <h2 class="h2 wipe">Built to work for you.</h2>
+    <h2 class="h2 wipe">Built to work for you.</h2><span class="spark-line"></span>
   </div>
   <div class="grid g-feat">
     <div class="rv"><div class="card glass feat">
@@ -165,27 +162,30 @@
   <div class="showcase">
     <div class="stack rv">
       <div class="eyebrow">Business systems</div>
-      <h2 class="h2 wipe">See your whole business in one place.</h2>
+      <h2 class="h2 wipe">See your whole business in one place.</h2><span class="spark-line"></span>
       <p class="lead">Bookings, messages, stock and records live together in one simple screen, instead of scattered across notebooks and spreadsheets.</p>
       <ul class="ticks"><li>Everything searchable and up to date</li><li>Alerts when something needs attention</li><li>Made for your team, not a generic template</li></ul>
     </div>
-    <div class="mock glass rv d1" role="img" aria-label="Illustration of a business dashboard">
-      <div class="mock-top"><i></i><i></i><i></i><em>Sample view</em></div>
-      <div class="mock-body">
-        <div class="kpis">
-          <div class="kpi"><small>Bookings</small><b>24</b></div>
-          <div class="kpi"><small>Messages</small><b>8</b></div>
-          <div class="kpi"><small>Low stock</small><b>3</b></div>
+    <div class="tilt rv d1">
+      <div class="mock glass" role="img" aria-label="Illustration of a business dashboard">
+        <div class="mock-top"><i></i><i></i><i></i><em class="live">Sample view</em></div>
+        <div class="mock-body">
+          <div class="kpis">
+            <div class="kpi"><small>Bookings</small><b>24</b></div>
+            <div class="kpi"><small>Messages</small><b>8</b></div>
+            <div class="kpi"><small>Low stock</small><b>3</b></div>
+          </div>
+          <div class="bars" aria-hidden="true">
+            <div class="bar" style="height:45%"></div><div class="bar" style="height:70%"></div><div class="bar" style="height:55%"></div>
+            <div class="bar" style="height:90%"></div><div class="bar" style="height:65%"></div><div class="bar" style="height:100%"></div><div class="bar" style="height:80%"></div>
+          </div>
+          <div class="list">
+            <div class="li"><span>Intro call · 9:00 AM</span><span class="badge ok">Confirmed</span></div>
+            <div class="li"><span>Inventory update · 11:00 AM</span><span class="badge">Pending</span></div>
+            <div class="li"><span>Website review · 2:00 PM</span><span class="badge ok">Confirmed</span></div>
+          </div>
         </div>
-        <div class="bars" aria-hidden="true">
-          <div class="bar" style="height:45%"></div><div class="bar" style="height:70%"></div><div class="bar" style="height:55%"></div>
-          <div class="bar" style="height:90%"></div><div class="bar" style="height:65%"></div><div class="bar" style="height:100%"></div><div class="bar" style="height:80%"></div>
-        </div>
-        <div class="list">
-          <div class="li"><span>Intro call · 9:00 AM</span><span class="badge ok">Confirmed</span></div>
-          <div class="li"><span>Inventory update · 11:00 AM</span><span class="badge">Pending</span></div>
-          <div class="li"><span>Website review · 2:00 PM</span><span class="badge ok">Confirmed</span></div>
-        </div>
+        <div class="toast" aria-hidden="true"><i>✓</i>New booking received</div>
       </div>
     </div>
   </div>
@@ -196,21 +196,21 @@
   <div class="head rv">
     <div class="stack">
       <div class="eyebrow">Portfolio</div>
-      <h2 class="h2 wipe">Our work</h2>
+      <h2 class="h2 wipe">Our work</h2><span class="spark-line"></span>
     </div>
-    <a class="navlink" href="#contact" style="font-size:17px;font-weight:700;color:var(--pink-soft)">Start your project →</a>
+    <a class="navlink" href="/booking.html" style="font-size:17px;font-weight:700;color:var(--pink-soft)">Start your project →</a>
   </div>
   <div class="grid g-proj">
-    <div class="rv"><a class="card glass proj" href="#contact">
-      <div class="img p1">[PROJECT IMAGE]</div>
+    <div class="rv"><a class="card glass proj" href="/booking.html">
+      <div class="img p1"><span class="view">View project</span><div class="wf"><div class="dots"><i></i><i></i><i></i></div><em></em><em></em><em></em></div></div>
       <div class="txt"><div class="cat">[CATEGORY]</div><div class="nm">[PROJECT NAME]</div><div class="ds">Short description of the problem we solved.</div></div>
     </a></div>
-    <div class="rv d1"><a class="card glass proj" href="#contact">
-      <div class="img p2">[PROJECT IMAGE]</div>
+    <div class="rv d1"><a class="card glass proj" href="/booking.html">
+      <div class="img p2"><span class="view">View project</span><div class="wf"><div class="dots"><i></i><i></i><i></i></div><em></em><em></em><em></em></div></div>
       <div class="txt"><div class="cat">[CATEGORY]</div><div class="nm">[PROJECT NAME]</div><div class="ds">Short description of the problem we solved.</div></div>
     </a></div>
-    <div class="rv d2"><a class="card glass proj" href="#contact">
-      <div class="img p3">[PROJECT IMAGE]</div>
+    <div class="rv d2"><a class="card glass proj" href="/booking.html">
+      <div class="img p3"><span class="view">View project</span><div class="wf"><div class="dots"><i></i><i></i><i></i></div><em></em><em></em><em></em></div></div>
       <div class="txt"><div class="cat">[CATEGORY]</div><div class="nm">[PROJECT NAME]</div><div class="ds">Short description of the problem we solved.</div></div>
     </a></div>
   </div>
@@ -247,9 +247,9 @@
 
 <!-- PACKAGES -->
 <section id="packages" class="wrap">
-  <div class="stack head rv" style="display:flex;flex-direction:column;align-items:flex-start;margin-bottom:40px">
+  <div class="stack rv" style="margin-bottom:40px">
     <div class="eyebrow">Packages</div>
-    <h2 class="h2 wipe">Start small, grow when ready.</h2>
+    <h2 class="h2 wipe">Start small, grow when ready.</h2><span class="spark-line"></span>
     <p class="lead">Every project is different, so we quote after a free call. These are the usual starting points.</p>
   </div>
   <div class="grid g-price">
@@ -259,7 +259,7 @@
       <a class="btn btn-ghost" href="/booking.html">Ask about this</a>
     </div></div>
     <div class="rv d1"><div class="card glass price pop">
-      <div class="pt">Most requested</div><h3>Website + booking</h3><div class="q">Quote after a free call</div>
+      <span class="ribbon">Most requested</span><h3>Website + booking</h3><div class="q">Quote after a free call</div>
       <ul class="ticks"><li>Everything in Starter</li><li>Online booking with fixed time slots</li><li>Booking and message records</li><li>Email notification for every booking</li></ul>
       <a class="btn btn-main" href="/booking.html">Ask about this</a>
     </div></div>
@@ -275,13 +275,13 @@
 <section id="faq" class="wrap" style="max-width:860px;display:flex;flex-direction:column;gap:32px">
   <div class="stack rv">
     <div class="eyebrow">FAQ</div>
-    <h2 class="h2 wipe">Common questions</h2>
+    <h2 class="h2 wipe">Common questions</h2><span class="spark-line"></span>
   </div>
   <div class="faq-list">
     <details class="faq rv"><summary>Do I need to know anything technical?<span class="plus" aria-hidden="true">+</span></summary><p>No. Tell us your problem in your own words and we will handle the technical part.</p></details>
     <details class="faq rv"><summary>What kind of businesses do you work with?<span class="plus" aria-hidden="true">+</span></summary><p>Business owners of any size who want to make daily work easier with a website or a system.</p></details>
     <details class="faq rv"><summary>Will my website work on phones?<span class="plus" aria-hidden="true">+</span></summary><p>Yes. Every site we build is designed for desktop, tablet and phone.</p></details>
-    <details class="faq rv"><summary>How do we start?<span class="plus" aria-hidden="true">+</span></summary><p>Book a call. We will listen, then show you a design before any building begins.</p></details>
+    <details class="faq rv"><summary>How do we start?<span class="plus" aria-hidden="true">+</span></summary><p>Book a call. We will listen, then show you a design before any building begins. Calls need at least one day notice and run Monday to Friday.</p></details>
     <details class="faq rv"><summary>How much does it cost?<span class="plus" aria-hidden="true">+</span></summary><p>It depends on what you need. After a free call we give you a clear quote before any work starts.</p></details>
     <details class="faq rv"><summary>What happens after my site is live?<span class="plus" aria-hidden="true">+</span></summary><p>We keep it running, secure and updated, and we can add new features as your business grows.</p></details>
   </div>
@@ -300,16 +300,20 @@
 </main>
 
 <footer class="foot">
+  <div class="mega" aria-hidden="true">Spark Solution</div>
   <div class="foot-in">
     <div class="about">
       <a class="brand" href="#top"><svg width="32" height="32" viewBox="0 0 200 200" aria-hidden="true"><use href="#spkMark"/></svg><span><b>Spark</b> <span>Solution</span></span></a>
       <p>Solutions that make running your business easier. Web and system development for business owners.</p>
     </div>
     <div><h4>Company</h4><a href="#services">Services</a><a href="#portfolio">Portfolio</a><a href="#packages">Packages</a><a href="#faq">FAQ</a></div>
-    <div><h4>Work with us</h4><a href="#process">How we work</a><a href="/booking.html">Book a call</a><a href="mailto:sparksolutionservice@gmail.com">Message us</a></div>
+    <div><h4>Work with us</h4><a href="#process">How we work</a><a href="/booking.html">Book a call</a><a href="/contact.html">Message us</a></div>
     <div><h4>Contact</h4><a href="mailto:sparksolutionservice@gmail.com">sparksolutionservice@gmail.com</a><a href="tel:+639121657915">0912-165-7915</a><span class="line">Bulakan, Bulacan, Central Luzon, Philippines</span><span class="line">Facebook: Spark Solution</span></div>
   </div>
   <div class="copy"><span>© 2026 Spark Solution</span><span>Mon to Fri, 9 AM to 4 PM</span></div>
 </footer>
+<button class="totop" id="toTop" type="button" aria-label="Back to top">↑</button>
+<script src="/js/nav.js"></script>
+<script src="/js/home.js"></script>
 </body>
 </html>
