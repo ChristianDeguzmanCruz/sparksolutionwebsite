@@ -1,4 +1,4 @@
-const { esc } = require('./mailer');
+const { esc, logoSrc } = require('./mailer');
 
 const SITE = {
   name: 'Spark Solution',
@@ -40,7 +40,7 @@ function layout({ preheader = '', title, intro = '', rows = [], button, note = '
   <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:100%;max-width:600px;background:#ffffff;border-radius:16px;overflow:hidden">
     <tr><td style="background:#1B1363;background-image:linear-gradient(135deg,#0B0A2A 0%,#1B1363 45%,#5C2DA3 80%,#D9509A 100%);padding:28px 32px">
       <table role="presentation" cellpadding="0" cellspacing="0"><tr>
-        <td style="vertical-align:middle"><img src="cid:spark-logo" width="48" height="48" alt="Spark Solution logo" style="display:block;border:0"></td>
+        <td style="vertical-align:middle"><img src="${esc(logoSrc())}" width="48" height="48" alt="Spark Solution logo" style="display:block;border:0"></td>
         <td style="vertical-align:middle;padding-left:12px;font:400 22px ${FONT};color:#ffffff"><b>Spark</b> Solution</td>
       </tr></table>
       <div style="margin-top:14px;font:400 14px ${FONT};color:#D6D3F2">${esc(SITE.tagline)}</div>
