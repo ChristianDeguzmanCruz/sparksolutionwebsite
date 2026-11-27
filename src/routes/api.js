@@ -3,6 +3,7 @@ const rateLimit = require('express-rate-limit');
 const pool = require('../db');
 const { sendMail } = require('../mailer');
 const mail = require('../emailTemplates');
+const rules = require('../booking-rules');
 
 const router = express.Router();
 
@@ -22,21 +23,13 @@ const calendarUrl = (date, hour) => {
   return (
     'https://calendar.google.com/calendar/render?action=TEMPLATE' +
     '&text=' + encodeURIComponent('Call with Spark Solution') +
-    `&dates=${d}T${t(hour)}/${d}T${t(hour + 1)}&ctz=Asia/Manila`
+    `&dates=${d}T${t(hour)}/${d}T${t(hour + 1)}&ctz=${rules.TIMEZONE}`
   );
 };
 
-// Mon-Fri. One-hour calls starting at these hours (24h clock): 9, 10, 11, 1PM, 2PM, 3PM
-const HOURS = [9, 10, 11, 13, 14, 15];
 const emailOk = (v) => typeof v === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
 const clean = (v, max) => (typeof v === 'string' ? v.trim().slice(0, max) : '');
-const today = () => new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Manila' });
-
-function validDate(date) {
-  if (typeof date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return false;
-  const day = new Date(date + 'T00:00:00Z').getUTCDay();
-  return day >= 1 && day <= 5 && date >= today();
-}
+const DATE_ERROR = 'Please pick a weekday that is at least one day from today.';
 
 // Rate limits are skipped while running tests (Jest sets NODE_ENV=test)
 const skipInTests = () => process.env.NODE_ENV === 'test';
@@ -51,18 +44,31 @@ const writeLimiter = rateLimit({
   message: { error: 'Too many requests. Please try again later.' },
 });
 
+// The booking page asks the server for today's date and the earliest bookable day,
+// so the calendar follows the server's (Philippine) clock, not the visitor's computer
+router.get('/config', (req, res) => {
+  res.json({
+    today: rules.today(),
+    minDate: rules.minDate(),
+    hours: rules.HOURS,
+    noticeDays: rules.noticeDays(),
+    timezone: rules.TIMEZONE,
+  });
+});
+
 // Which hours are still free on a date
 router.get('/slots', async (req, res) => {
   const { date } = req.query;
-  if (!validDate(date)) return res.status(400).json({ error: 'Pick a weekday from today onward.' });
+  if (!rules.validDate(date)) return res.status(400).json({ error: DATE_ERROR });
   const { rows } = await pool.query('SELECT hour FROM bookings WHERE booking_date = $1', [date]);
   const taken = rows.map((r) => r.hour);
-  res.json({ date, hours: HOURS, available: HOURS.filter((h) => !taken.includes(h)) });
+  res.json({ date, hours: rules.HOURS, available: rules.availableHours(date, taken) });
 });
 
 // Book a slot
 router.post('/bookings', writeLimiter, async (req, res) => {
   if (req.body.website) return res.status(201).json({ ok: true }); // honeypot: bots fill this
+
   const name = clean(req.body.name, 100);
   const email = clean(req.body.email, 200);
   const phone = clean(req.body.phone, 40);
@@ -71,8 +77,11 @@ router.post('/bookings', writeLimiter, async (req, res) => {
   const { date } = req.body;
   const hour = Number(req.body.hour);
 
-  if (!name || !emailOk(email) || !validDate(date) || !HOURS.includes(hour)) {
-    return res.status(400).json({ error: 'Please check your date, time, name and email.' });
+  if (!name || !emailOk(email)) {
+    return res.status(400).json({ error: 'Please enter your name and a valid email.' });
+  }
+  if (!rules.validSlot(date, hour)) {
+    return res.status(400).json({ error: DATE_ERROR });
   }
   try {
     await pool.query(
@@ -87,7 +96,7 @@ router.post('/bookings', writeLimiter, async (req, res) => {
     const customer = mail.bookingConfirmation({ name, slot, business, topic, calendarUrl: calendarUrl(date, hour) });
     sendMail({ to: email, ...customer });
 
-    res.status(201).json({ ok: true });
+    res.status(201).json({ ok: true, slot });
   } catch (err) {
     if (err.code === '23505') return res.status(409).json({ error: 'That time was just taken. Please pick another.' });
     throw err;
@@ -97,6 +106,7 @@ router.post('/bookings', writeLimiter, async (req, res) => {
 // Contact message
 router.post('/contact', writeLimiter, async (req, res) => {
   if (req.body.website) return res.status(201).json({ ok: true }); // honeypot: bots fill this
+
   const name = clean(req.body.name, 100);
   const email = clean(req.body.email, 200);
   const subject = clean(req.body.subject, 150);
