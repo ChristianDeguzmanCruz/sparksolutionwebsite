@@ -1,0 +1,41 @@
+[33mcommit d4c0f3bb571bc0e2565bfcdc86ef08200f58dad6[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mdeploy-prep[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Author: chrsitiandeguzmancruz <cruzjohnchristian2001@gmail.com>
+Date:   Thu Nov 26 13:02:19 2026 +0800
+
+    add jest test and split app from server
+
+[33mcommit 61d2aa0b3bed84273b61ab8f7fe06025223c018d[m
+Author: chrsitiandeguzmancruz <cruzjohnchristian2001@gmail.com>
+Date:   Thu Nov 26 12:45:32 2026 +0800
+
+    add phone and Email template
+
+[33mcommit 86470d2681e09c1f1d6bd60211e2a6e194ddfc85[m
+Author: chrsitiandeguzmancruz <cruzjohnchristian2001@gmail.com>
+Date:   Thu Nov 26 12:26:57 2026 +0800
+
+    harder security : CSP, Rate Limits., Honeypot , Body Limit
+
+[33mcommit fd11601557f9506e46e0e58d572996a0d2837cf6[m
+Author: chrsitiandeguzmancruz <cruzjohnchristian2001@gmail.com>
+Date:   Wed Nov 25 12:22:12 2026 +0800
+
+    Add nodemon, Server and Starter page
+
+[33mcommit 67430df4a61d009c58fc23a6fbdc27a21f46c8c1[m
+Author: chrsitiandeguzmancruz <cruzjohnchristian2001@gmail.com>
+Date:   Fri Nov 20 11:58:18 2026 +0800
+
+     add dependenceis and Npm script
+
+[33mcommit 0e888e58e94d942d164e3c4844041282170491e2[m
+Author: ChristianDeguzmanCruz <cruzjohnchristian2001@gmail.com>
+Date:   Fri Nov 20 11:38:12 2026 +0800
+
+    Initial commit : add .gitIgnore
+
+[33mcommit 5e0b9eee3c57ffc70701eb24de830921dba2fa69[m
+Author: ChristianDeguzmanCruz <145825701+ChristianDeguzmanCruz@users.noreply.github.com>
+Date:   Fri Nov 20 11:44:59 2026 +0800
+
+    Initial commit
